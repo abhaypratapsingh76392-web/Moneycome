@@ -157,7 +157,9 @@ body{background:#160404;font-family:'Segoe UI',Arial,sans-serif;color:#fff;overf
  background:linear-gradient(180deg,#052e16,#16a34a 18%,#22c55e 50%,#16a34a 82%,#052e16);box-shadow:inset 0 10px 18px #000c,inset 0 -10px 18px #000c}
 .reel.goldreel{background:linear-gradient(180deg,#8a5200,#f5c542 20%,#ffe97a 50%,#f5c542 80%,#8a5200)}
 .strip{position:absolute;width:100%;text-align:center;transition:none}
-.cell{height:104px;display:flex;align-items:center;justify-content:center;font-size:62px;font-weight:900;color:#ffe97a;text-shadow:0 3px 0 #92600a,0 6px 10px #0009;font-family:Georgia,serif}
+.cell{height:104px;display:flex;align-items:center;justify-content:center;font-size:64px;font-weight:900;font-family:Georgia,serif;
+ background:linear-gradient(180deg,#fffbe6 5%,#ffe97a 30%,#ffc926 52%,#b97a06 72%,#ffe97a 95%);-webkit-background-clip:text;background-clip:text;color:transparent;
+ filter:drop-shadow(0 3px 0 rgba(90,45,0,.9)) drop-shadow(0 6px 8px rgba(0,0,0,.55))}
 .goldreel .cell{font-size:19px;color:#7c2d12;flex-direction:column;text-shadow:0 1px 0 #fff8}
 .goldreel .cell b{font-size:24px}
 .blur .cell{filter:blur(2px)}
@@ -172,6 +174,18 @@ body{background:#160404;font-family:'Segoe UI',Arial,sans-serif;color:#fff;overf
 .round-btn:active{transform:scale(.93)}
 #spinBtn{width:96px;height:96px;border-radius:50%;border:4px solid #d98a00;cursor:pointer;font-weight:900;font-size:19px;color:#fff;letter-spacing:1px;
  background:radial-gradient(circle at 35% 28%,#a7f3b0,#22c55e 45%,#15803d 80%);box-shadow:0 10px 22px #000b,inset 0 4px 8px #fff8,inset 0 -10px 16px #0006;text-shadow:0 2px 3px #065f46}
+#spinBtn::after{content:'';position:absolute;inset:6px 10px auto 10px;height:34px;border-radius:50%;background:linear-gradient(180deg,rgba(255,255,255,.75),rgba(255,255,255,0));pointer-events:none}
+#spinBtn{position:relative;overflow:hidden}
+.shine{position:relative;overflow:hidden}.shine::before{content:'';position:absolute;top:0;left:-80%;width:50%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent);animation:sweep 3.2s infinite;z-index:2}
+@keyframes sweep{0%{left:-80%}55%,100%{left:130%}}
+.ic{width:30px;height:30px;filter:drop-shadow(0 2px 2px rgba(0,0,0,.6))}
+.ic.sm{width:20px;height:20px}
+#wheel{border-radius:50%}
+.reel::before{content:'';position:absolute;inset:0;z-index:3;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,.55),transparent 22%,transparent 78%,rgba(0,0,0,.55)),linear-gradient(90deg,rgba(255,255,255,.14),transparent 18%,transparent 82%,rgba(0,0,0,.25))}
+.reel::after{content:'';position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(255,255,220,.18);z-index:3}
+.wheel-frame::before{content:'';position:absolute;inset:5px;border-radius:inherit;border:2px solid rgba(255,240,170,.55);pointer-events:none}
+.bar,.reels,.wheel-frame{transform:translateZ(0)}
+.logo{text-shadow:none}
 #spinBtn:active{transform:scale(.94)} #spinBtn:disabled{filter:grayscale(.5);opacity:.7}
 #spinBtn.spinning{animation:spinPulse .5s infinite alternate}@keyframes spinPulse{to{transform:scale(1.07)}}
 .balrow{display:flex;justify-content:space-between;align-items:center;padding:8px 10px 0;font-size:14px}
@@ -198,19 +212,39 @@ body{background:#160404;font-family:'Segoe UI',Arial,sans-serif;color:#fff;overf
 </style></head>
 <body>
 <!-- LOADING -->
+<div id="splash" style="position:fixed;inset:0;background:#000;z-index:120;display:flex;align-items:center;justify-content:center;flex-direction:column;transition:opacity .4s"><div style="font-family:Georgia;font-weight:900;font-style:italic;font-size:52px;background:linear-gradient(180deg,#fff7ae,#ffd83d 45%,#e07b00);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 3px 2px rgba(120,60,0,.7))">Money</div><div style="width:170px;height:5px;background:#2b2b2b;border-radius:4px;margin-top:10px;overflow:hidden"><i id="splashBar" style="display:block;height:100%;width:8%;background:#ffc926;border-radius:4px;transition:width 1s"></i></div></div>
 <div id="loader">
   <div class="logo">Money<br>Coming</div>
-  <div class="vola">Volatility : <span class="chilli on">🌶️</span><span class="chilli on">🌶️</span><span class="chilli">🌶️</span><span class="chilli">🌶️</span><span class="chilli">🌶️</span></div>
-  <div class="event"><div class="trophy">🏆</div><h2>Join Super Event!</h2><p>Tournaments Every Day<br>Rewards and Rebates!</p></div>
+  <div class="vola">Volatility : <svg class="ic sm"><use href="#i-chilli"/></svg><svg class="ic sm"><use href="#i-chilli"/></svg><svg class="ic sm" style="opacity:.25"><use href="#i-chilli"/></svg><svg class="ic sm" style="opacity:.25"><use href="#i-chilli"/></svg><svg class="ic sm" style="opacity:.25"><use href="#i-chilli"/></svg></div>
+  <div class="event shine"><div class="trophy"><svg class="ic" style="width:74px;height:74px"><use href="#i-trophy"/></svg></div><h2>Join Super Event!</h2><p>Super Tournaments Every<br>Day! Max Rewards and Rebates!</p></div>
   <div class="loadbar"><i id="loadfill"></i></div><div id="loadtxt">Loading... 0%</div>
   <div class="dont">☐ Don't show next time</div>
 </div>
 
+
+<!-- ===== ICON SPRITE : saare icons code se bane hain, koi bahari image nahi ===== -->
+<svg width="0" height="0" style="position:absolute">
+ <defs>
+  <linearGradient id="gGold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff2a8"/><stop offset=".5" stop-color="#ffc926"/><stop offset="1" stop-color="#c47d00"/></linearGradient>
+  <linearGradient id="gGreen" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bbf7d0"/><stop offset=".5" stop-color="#22c55e"/><stop offset="1" stop-color="#15803d"/></linearGradient>
+ </defs>
+ <symbol id="i-gear" viewBox="0 0 48 48"><g fill="#ffe1a8"><rect x="21.5" y="3" width="5" height="9" rx="2"/><rect x="21.5" y="3" width="5" height="9" rx="2" transform="rotate(45 24 24)"/><rect x="21.5" y="3" width="5" height="9" rx="2" transform="rotate(90 24 24)"/><rect x="21.5" y="3" width="5" height="9" rx="2" transform="rotate(135 24 24)"/><rect x="21.5" y="3" width="5" height="9" rx="2" transform="rotate(180 24 24)"/><rect x="21.5" y="3" width="5" height="9" rx="2" transform="rotate(225 24 24)"/><rect x="21.5" y="3" width="5" height="9" rx="2" transform="rotate(270 24 24)"/><rect x="21.5" y="3" width="5" height="9" rx="2" transform="rotate(315 24 24)"/></g><circle cx="24" cy="24" r="12.5" fill="url(#gGold)" stroke="#8a5200" stroke-width="2"/><circle cx="24" cy="24" r="5.5" fill="#7c3f06"/></symbol>
+ <symbol id="i-coins" viewBox="0 0 48 48"><ellipse cx="21" cy="36" rx="13" ry="5" fill="#c47d00"/><ellipse cx="21" cy="31" rx="13" ry="5" fill="url(#gGold)" stroke="#8a5200"/><ellipse cx="21" cy="25" rx="13" ry="5" fill="url(#gGold)" stroke="#8a5200"/><ellipse cx="21" cy="19" rx="13" ry="5" fill="#fff2a8" stroke="#8a5200"/><circle cx="35" cy="12" r="9" fill="url(#gGreen)" stroke="#14532d" stroke-width="2"/><path d="M35 7v10M30 12h10" stroke="#fff" stroke-width="3.4" stroke-linecap="round"/></symbol>
+ <symbol id="i-auto" viewBox="0 0 48 48"><path d="M38 24a14 14 0 1 1-4.2-10" fill="none" stroke="#ffe1a8" stroke-width="4.4" stroke-linecap="round"/><path d="M35 3v12H23z" fill="url(#gGold)" stroke="#8a5200" stroke-width="1.4"/><circle cx="24" cy="24" r="3.4" fill="#ffe1a8"/></symbol>
+ <symbol id="i-bolt" viewBox="0 0 48 48"><path d="M27 3 9 27h11l-3 18L36 19H24z" fill="url(#gGold)" stroke="#8a5200" stroke-width="2" stroke-linejoin="round"/></symbol>
+ <symbol id="i-trophy" viewBox="0 0 48 48"><path d="M13 6h22v7a11 11 0 0 1-22 0z" fill="url(#gGold)" stroke="#8a5200" stroke-width="2"/><path d="M13 10H6a7 7 0 0 0 8 7M35 10h7a7 7 0 0 1-8 7" fill="none" stroke="#c47d00" stroke-width="3.4"/><path d="m24 17 2.2 4.6 5 .6-3.7 3.4 1 4.9L24 28l-4.5 2.5 1-4.9-3.7-3.4 5-.6z" fill="#fff2a8" stroke="#8a5200"/><rect x="21.5" y="27" width="5" height="8" fill="#c47d00"/><rect x="14" y="38" width="20" height="5" rx="2" fill="url(#gGold)" stroke="#8a5200"/></symbol>
+ <symbol id="i-coin" viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="url(#gGold)" stroke="#8a5200" stroke-width="3"/><circle cx="24" cy="24" r="14.5" fill="none" stroke="#fff2a8" stroke-width="2"/><text x="24" y="32" text-anchor="middle" font-size="22" font-weight="900" fill="#8a5200" font-family="Georgia">$</text></symbol>
+ <symbol id="i-lock" viewBox="0 0 48 48"><rect x="10" y="20" width="28" height="22" rx="5" fill="url(#gGold)" stroke="#8a5200" stroke-width="2.4"/><path d="M16 20v-5a8 8 0 0 1 16 0v5" fill="none" stroke="#d9d9d9" stroke-width="5"/><circle cx="24" cy="29" r="4" fill="#7c3f06"/><rect x="22.4" y="29" width="3.2" height="7" fill="#7c3f06"/></symbol>
+ <symbol id="i-chain" viewBox="0 0 48 48"><g fill="none" stroke="url(#gGold)" stroke-width="4"><ellipse cx="15" cy="24" rx="9" ry="5.4" transform="rotate(-32 15 24)"/><ellipse cx="33" cy="24" rx="9" ry="5.4" transform="rotate(-32 33 24)"/></g></symbol>
+ <symbol id="i-chilli" viewBox="0 0 48 48"><path d="M8 14c14 22 26 24 34 20C34 40 14 34 6 18z" fill="#dc2626" stroke="#7f1d1d" stroke-width="1.6"/><path d="M8 14c-1-5 2-8 7-9-2 3-2 6 0 8z" fill="#16a34a"/></symbol>
+ <symbol id="i-wifi" viewBox="0 0 48 48"><g fill="none" stroke="#4ade80" stroke-linecap="round"><path d="M6 18a27 27 0 0 1 36 0" stroke-width="4.4"/><path d="M13 27a18 18 0 0 1 22 0" stroke-width="4.4"/><path d="M20 35a9 9 0 0 1 8 0" stroke-width="4.4"/></g><circle cx="24" cy="41" r="3" fill="#4ade80"/></symbol>
+ <symbol id="i-sound" viewBox="0 0 48 48"><path d="M7 19h8l10-9v28L15 29H7z" fill="#ffe1a8"/><path d="M31 17a9 9 0 0 1 0 14M35 12a16 16 0 0 1 0 24" fill="none" stroke="#ffe1a8" stroke-width="3.4" stroke-linecap="round"/></symbol>
+</svg>
 <div id="app"><div id="game">
   <div class="topbar">
     <button class="icon-btn" onclick="history.back()">‹</button>
-    <div class="bal-pill"><span class="coin-ic">$</span> ₹ <span id="balTop">1000.00</span></div>
-    <button class="icon-btn" id="soundBtn" title="Sound">🔊</button>
+    <div class="bal-pill"><svg class="ic sm" style="width:26px;height:26px"><use href="#i-coin"/></svg> ₹ <span id="balTop">1000.00</span></div>
+    <button class="icon-btn" id="soundBtn" title="Sound"><svg class="ic sm"><use href="#i-sound"/></svg></button>
     <button class="icon-btn" onclick="openModal('helpModal')">☰</button>
   </div>
 
@@ -218,9 +252,9 @@ body{background:#160404;font-family:'Segoe UI',Arial,sans-serif;color:#fff;overf
   <div class="wheel-frame"><div class="wheel-inner">
     <div id="wheelWrap">
       <div class="pointer">$</div>
-      <svg id="wheel" viewBox="0 0 300 300"></svg>
+      <canvas id="wheel" width="640" height="640"></canvas>
       <div class="hub">$</div>
-      <div class="locked" id="wheelLock"><div class="chain">⛓️⛓️</div><b>Bet 5 Up Game<br>To unlock Lucky Wheel</b></div>
+      <div class="locked" id="wheelLock"><svg class="ic" style="width:110px;height:52px;transform:rotate(-14deg)"><use href="#i-chain"/></svg><svg class="ic" style="width:46px;height:46px;margin-top:-8px"><use href="#i-lock"/></svg><b>Bet 5 Up Game<br>To unlock Lucky Wheel</b></div>
     </div>
   </div></div>
   <div class="logo small" style="margin-top:6px">Money Coming</div>
@@ -243,16 +277,16 @@ body{background:#160404;font-family:'Segoe UI',Arial,sans-serif;color:#fff;overf
 
   <!-- CONTROLS -->
   <div class="controls">
-    <div class="ctrl"><button class="round-btn" onclick="openModal('helpModal')">⚙️</button><div>Setting</div></div>
-    <div class="ctrl"><button class="round-btn" onclick="openModal('payModal')">💰</button><div>Paytable</div></div>
-    <div><button id="spinBtn">SPIN</button></div>
-    <div class="ctrl"><button class="round-btn toggle" id="autoBtn">🔁</button><div>Auto</div></div>
-    <div class="ctrl"><button class="round-btn toggle" id="turboBtn">⚡</button><div>Turbo</div></div>
+    <div class="ctrl"><button class="round-btn shine" onclick="openModal('helpModal')"><svg class="ic"><use href="#i-gear"/></svg></button><div>Setting</div></div>
+    <div class="ctrl"><button class="round-btn shine" id="betMenuBtn"><svg class="ic"><use href="#i-coins"/></svg></button><div>Bet ₹ <span id="betLbl">10</span></div></div>
+    <div><button id="spinBtn"><span id="spinLbl" style="font-family:Georgia;font-style:italic;background:linear-gradient(180deg,#fff7ae,#ffd83d 45%,#ff9d00);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 2px 1px rgba(90,40,0,.8))">SPIN</span></button></div>
+    <div class="ctrl"><button class="round-btn shine toggle" id="autoBtn"><svg class="ic"><use href="#i-auto"/></svg></button><div>Auto</div></div>
+    <div class="ctrl"><button class="round-btn shine toggle" id="turboBtn"><svg class="ic"><use href="#i-bolt"/></svg></button><div>Turbo</div></div>
   </div>
   <div class="betbox"><button id="betMinus">−</button><div id="betVal">Bet ₹ 10</div><button id="betPlus">+</button></div>
   <div class="quick" id="quickBets"></div>
   <div class="balrow"><span><span class="lv">LV 0</span> &nbsp;Balance &nbsp;<b style="color:#ffd83d">₹ <span id="balBottom">1000.00</span></b></span>
-  <span style="color:#4ade80">📶</span></div>
+  <svg class="ic sm"><use href="#i-wifi"/></svg></div>
   <div style="text-align:center;margin-top:10px">
     <button onclick="resetGame()" style="background:rgba(0,0,0,.45);color:#ffe9c9;border:1px solid #ffb34788;border-radius:16px;padding:5px 13px;cursor:pointer;font-weight:700">↺ Refill Demo Balance</button>
     <button onclick="openModal('histModal')" style="background:rgba(0,0,0,.45);color:#ffe9c9;border:1px solid #ffb34788;border-radius:16px;padding:5px 13px;cursor:pointer;font-weight:700">History</button>
@@ -261,7 +295,7 @@ body{background:#160404;font-family:'Segoe UI',Arial,sans-serif;color:#fff;overf
 </div></div>
 
 <!-- MODALS -->
-<div class="modal" id="payModal"><div class="sheet"><h3>🏆 PAYTABLE</h3>
+<div class="modal" id="payModal"><div class="sheet"><h3><svg class="ic sm"><use href="#i-trophy"/></svg> PAYTABLE</h3>
 <table><tr><th>Result</th><th>Payout</th></tr>
 <tr><td>2x Multiplier</td><td>Bet × 2</td></tr><tr><td>5x Multiplier</td><td>Bet × 5</td></tr>
 <tr><td>10x Multiplier (Bet ≥10)</td><td>Bet × 10</td></tr>
@@ -270,15 +304,15 @@ body{background:#160404;font-family:'Segoe UI',Arial,sans-serif;color:#fff;overf
 <tr><td>SCATTER (Bet ≥50)</td><td>Bet × 5 Bonus</td></tr></table>
 <button class="closeb" onclick="closeModal('payModal')">OK</button></div></div>
 
-<div class="modal" id="histModal"><div class="sheet"><h3>🕘 HISTORY</h3><div id="histBody">No spins yet</div>
+<div class="modal" id="histModal"><div class="sheet"><h3>HISTORY</h3><div id="histBody">No spins yet</div>
 <button class="closeb" onclick="closeModal('histModal')">CLOSE</button></div></div>
 
-<div class="modal" id="helpModal"><div class="sheet"><h3>⚙️ SETTINGS / HELP</h3>
-<table><tr><td>🔊 Sound</td><td><button onclick="toggleSound()" style="padding:5px 14px;border-radius:8px;border:none;background:#22c55e;color:#fff;font-weight:800;cursor:pointer">ON / OFF</button></td></tr>
-<tr><td>🎡 Lucky Wheel</td><td>Bet ₹5+ par unlock</td></tr>
-<tr><td>✖️ 10x</td><td>Bet ₹10+ par unlock</td></tr>
-<tr><td>⭐ Scatter</td><td>Bet ₹50+ par unlock</td></tr>
-<tr><td>🎰 Kaise khelein</td><td>Bet chuno → SPIN dabao. Reels rukne par multiplier / wheel se jeet milti hai.</td></tr></table>
+<div class="modal" id="helpModal"><div class="sheet"><h3><svg class="ic sm"><use href="#i-gear"/></svg> SETTINGS / HELP</h3>
+<table><tr><td><svg class="ic sm"><use href="#i-sound"/></svg> Sound</td><td><button onclick="toggleSound()" style="padding:5px 14px;border-radius:8px;border:none;background:#22c55e;color:#fff;font-weight:800;cursor:pointer">ON / OFF</button></td></tr>
+<tr><td>Lucky Wheel</td><td>Bet ₹5+ par unlock</td></tr>
+<tr><td>10x</td><td>Bet ₹10+ par unlock</td></tr>
+<tr><td>Scatter</td><td>Bet ₹50+ par unlock</td></tr>
+<tr><td>Kaise khelein</td><td>Bet chuno → SPIN dabao. Reels rukne par multiplier / wheel se jeet milti hai.</td></tr></table>
 <button class="closeb" onclick="closeModal('helpModal')">OK</button></div></div>
 
 <div id="toast"></div><canvas id="confetti"></canvas>
@@ -303,24 +337,44 @@ const SFX={
  lose:()=>tone(320,.3,'sawtooth',.07,0,110),
  wheelTick:()=>tone(950,.03,'square',.09)
 };
-function toggleSound(){ soundOn=!soundOn; document.getElementById('soundBtn').textContent=soundOn?'🔊':'🔇'; if(soundOn)SFX.click(); }
+function toggleSound(){ soundOn=!soundOn; document.getElementById('soundBtn').style.opacity=soundOn?'1':'.45'; if(soundOn)SFX.click(); }
 document.getElementById('soundBtn').onclick=toggleSound;
 
-/* ================= WHEEL (SVG — image nahi, code se bana) ================= */
-const WHEEL=[{v:'50',c:'#16a34a',t:'#fff'},{v:'200',c:'#facc15',t:'#14532d'},{v:'2,000',c:'#dc2626',t:'#fff'},{v:'500',c:'#facc15',t:'#14532d'},{v:'100',c:'#16a34a',t:'#fff'},{v:'300',c:'#facc15',t:'#14532d'},{v:'150',c:'#16a34a',t:'#fff'},{v:'1,000',c:'#facc15',t:'#14532d'}];
-(function buildWheel(){
-  const svg=document.getElementById('wheel'); let h='<circle cx="150" cy="150" r="148" fill="#052e16" stroke="#f5c542" stroke-width="5"/>';
-  WHEEL.forEach((s,i)=>{ const a0=(i*45-90)*Math.PI/180,a1=((i+1)*45-90)*Math.PI/180;
-    const x0=150+140*Math.cos(a0),y0=150+140*Math.sin(a0),x1=150+140*Math.cos(a1),y1=150+140*Math.sin(a1);
-    h+=`<path d="M150 150 L${x0} ${y0} A140 140 0 0 1 ${x1} ${y1} Z" fill="${s.c}" stroke="#f5c542" stroke-width="2"/>`;
-    const am=(i*45+22.5-90)*Math.PI/180,tx=150+103*Math.cos(am),ty=150+103*Math.sin(am),rot=i*45+22.5+90;
-    h+=`<text x="${tx}" y="${ty}" fill="${s.t}" font-size="21" font-weight="900" font-family="Georgia" text-anchor="middle" dominant-baseline="middle" transform="rotate(${rot} ${tx} ${ty})">${s.v}</text>`; });
-  svg.innerHTML=h;
+/* ================= WHEEL (HIGH-RES CANVAS 640px — ekdum clear, 3D shading) ================= */
+const WHEEL=[{v:'50',c:'#22c55e',c2:'#14532d',t:'#ffffff'},{v:'200',c:'#fde047',c2:'#eab308',t:'#14532d'},{v:'2,000',c:'#ef4444',c2:'#991b1b',t:'#ffffff'},{v:'500',c:'#fde047',c2:'#eab308',t:'#14532d'},{v:'100',c:'#22c55e',c2:'#14532d',t:'#ffffff'},{v:'300',c:'#fde047',c2:'#eab308',t:'#14532d'},{v:'150',c:'#22c55e',c2:'#14532d',t:'#ffffff'},{v:'1,000',c:'#fde047',c2:'#eab308',t:'#14532d'}];
+function drawWheel(){
+  const cv=document.getElementById('wheel'); if(!cv||!cv.getContext)return; const x=cv.getContext('2d'),C=320,R=306;
+  x.clearRect(0,0,640,640);
+  // bahari sunehra ghaira + chamak
+  let rim=x.createRadialGradient(C-70,C-90,60,C,C,R); rim.addColorStop(0,'#fff2a8');rim.addColorStop(.55,'#f5c542');rim.addColorStop(1,'#8a5200');
+  x.beginPath();x.arc(C,C,R,0,7);x.fillStyle=rim;x.fill();
+  x.beginPath();x.arc(C,C,R-16,0,7);x.fillStyle='#7f1d1d';x.fill();
+  // rim par safed batti (screenshot wali dots)
+  for(let i=0;i<24;i++){const a=i/24*Math.PI*2;x.beginPath();x.arc(C+(R-25)*Math.cos(a),C+(R-25)*Math.sin(a),5.5,0,7);x.fillStyle=i%2?'#fff7cc':'#ffd83d';x.shadowColor='#ffe95e';x.shadowBlur=10;x.fill();x.shadowBlur=0;}
+  const bet=BETS[betIdx], f=bet>=10?bet/10:1;
+  WHEEL.forEach((sg,i)=>{
+    const a0=(i*45-90)*Math.PI/180, a1=((i+1)*45-90)*Math.PI/180;
+    const g=x.createRadialGradient(C,C,40,C,C,R-42); g.addColorStop(0,'#ffffff'); g.addColorStop(.28,sg.c); g.addColorStop(1,sg.c2);
+    x.beginPath();x.moveTo(C,C);x.arc(C,C,R-42,a0,a1);x.closePath();x.fillStyle=g;x.fill();
+    x.strokeStyle='#f5c542';x.lineWidth=4;x.stroke();
+    // har hisse par upar ki chamak (3D gloss)
+    x.save();x.beginPath();x.moveTo(C,C);x.arc(C,C,R-42,a0,a1);x.closePath();x.clip();
+    const gl=x.createLinearGradient(C,C-R,C,C+R);gl.addColorStop(0,'rgba(255,255,255,.38)');gl.addColorStop(.45,'rgba(255,255,255,0)');gl.addColorStop(1,'rgba(0,0,0,.20)');x.fillStyle=gl;x.fillRect(0,0,640,640);x.restore();
+    // number (bet ke hisaab se bada hota hai)
+    const am=(a0+a1)/2, tx=C+205*Math.cos(am), ty=C+205*Math.sin(am);
+    const label=f>1? String(Math.round(parseInt(sg.v.replace(/,/g,''))*f)).replace(/\B(?=(\d{3})+(?!\d))/g,',') : sg.v;
+    x.save();x.translate(tx,ty);x.rotate(am+Math.PI/2);x.font='900 37px Georgia';x.textAlign='center';x.textBaseline='middle';
+    x.lineWidth=6;x.strokeStyle='rgba(90,30,0,.45)';x.strokeText(label,0,0);x.fillStyle=sg.t;x.fillText(label,0,0);x.restore();
+  });
+  // beech ki roshni
+  const glow=x.createRadialGradient(C,C,10,C,C,190);glow.addColorStop(0,'rgba(255,255,230,.85)');glow.addColorStop(1,'rgba(255,255,230,0)');
+  x.beginPath();x.arc(C,C,190,0,7);x.fillStyle=glow;x.fill();
   const wrap=document.getElementById('wheelWrap');
-  for(let i=0;i<10;i++){const s=document.createElement('span');s.className='sparkle';s.textContent='✦';
-    s.style.left=(Math.random()*92)+'%';s.style.top=(Math.random()*92)+'%';s.style.animationDelay=(Math.random())+'s';wrap.appendChild(s);}
-})();
-
+  if(wrap && !wrap.dataset.spark){ wrap.dataset.spark=1;
+    for(let i=0;i<10;i++){const sp=document.createElement('span');sp.className='sparkle';sp.textContent='✦';
+      sp.style.left=(Math.random()*92)+'%';sp.style.top=(Math.random()*92)+'%';sp.style.animationDelay=(Math.random())+'s';wrap.appendChild(sp);} }
+}
+drawWheel();
 /* ================= REELS ================= */
 const DIGITS=['0','1','2','3','4','5','6','7','8','9'];
 const SYMS=[{t:'2x',s:'WIN'},{t:'5x',s:'WIN'},{t:'10x',s:'WIN'},{t:'RESPIN',s:''},{t:'WHEEL',s:'ALL'},{t:'SCATTER',s:''}];
@@ -360,12 +414,14 @@ function money(n){return Number(n).toLocaleString('en-IN',{minimumFractionDigits
 function setBalance(b){balance=b;$('balTop').textContent=money(b);$('balBottom').textContent=money(b)}
 function toast(msg,ms=2200){const t=$('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),ms)}
 function updateBetUI(){
-  $('betVal').textContent='Bet ₹ '+BETS[betIdx];
+  if(typeof drawWheel==='function') drawWheel();
+  $('betVal').textContent='Bet ₹ '+BETS[betIdx]; const bl=$('betLbl'); if(bl)bl.textContent=BETS[betIdx];
   $('wheelLock').classList.toggle('show',BETS[betIdx]<5);
   document.querySelectorAll('#quickBets button').forEach((b,i)=>b.classList.toggle('sel',i===betIdx));
 }
 BETS.forEach((b,i)=>{const btn=document.createElement('button');btn.textContent=b.toLocaleString('en-IN');
   btn.onclick=()=>{betIdx=i;SFX.click();updateBetUI()};$('quickBets').appendChild(btn)});
+const bm=$('betMenuBtn'); if(bm) bm.onclick=()=>{betIdx=(betIdx+1)%BETS.length;SFX.click();updateBetUI()};
 $('betMinus').onclick=()=>{if(betIdx>0)betIdx--;SFX.click();updateBetUI()};
 $('betPlus').onclick =()=>{if(betIdx<BETS.length-1)betIdx++;SFX.click();updateBetUI()};
 $('autoBtn').onclick=e=>{auto=!auto;e.currentTarget.classList.toggle('on',auto);SFX.click();if(auto&&!spinning)doSpin()};
@@ -417,7 +473,7 @@ async function doSpin(){
   if(spinning)return;
   const bet=BETS[betIdx];
   if(!freeNext && balance<bet){toast('❌ Insufficient Balance! Refill karo');SFX.lose();auto=false;$('autoBtn').classList.remove('on');return}
-  spinning=true;$('spinBtn').disabled=true;$('spinBtn').classList.add('spinning');$('spinBtn').textContent=freeNext?'FREE':'...';
+  spinning=true;$('spinBtn').disabled=true;$('spinBtn').classList.add('spinning');$('spinLbl').textContent=freeNext?'FREE':'•••';
   $('winAmt').textContent='0.00';$('winRow').classList.remove('big');SFX.spin();
   let data;
   try{
@@ -446,7 +502,7 @@ async function doSpin(){
   else { SFX.lose(); }
   setBalance(data.balance);
   loadHistory();
-  $('spinBtn').textContent=freeNext?'FREE SPIN':'SPIN';
+  $('spinLbl').textContent=freeNext?'FREE':'SPIN';
   spinning=false;$('spinBtn').disabled=false;$('spinBtn').classList.remove('spinning');
   if(auto) setTimeout(doSpin, turbo?300:900);
 }
@@ -467,6 +523,8 @@ async function resetGame(){ try{const r=await fetch(location.href,{method:'POST'
   const d=await r.json(); if(d.success){setBalance(d.balance);toast('✅ Balance refill: ₹'+money(d.balance))} }catch(e){ setBalance(1000); toast('Demo balance: ₹1,000'); } }
 
 /* ================= LOADER ================= */
+setTimeout(()=>{const sb=document.getElementById('splashBar'); if(sb)sb.style.width='100%'},50);
+setTimeout(()=>{const sp=document.getElementById('splash'); if(sp){sp.style.opacity=0; setTimeout(()=>sp.style.display='none',420)}},1150);
 (function(){
   let p=0; const iv=setInterval(()=>{ p=Math.min(100,p+Math.random()*11);
     $('loadfill').style.width=p+'%'; $('loadtxt').textContent='Loading... '+Math.floor(p)+'%';
